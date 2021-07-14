@@ -1,5 +1,4 @@
 import { Component} from '@angular/core';
-import * as $ from "jquery";
 
 @Component({
   selector: 'app-Profit',
@@ -7,8 +6,10 @@ import * as $ from "jquery";
   styleUrls: ['./Profit.component.scss']
 })
 export class ProfitComponent {
-  /*plomberie=(document.getElementById('Plomberie')as HTMLInputElement).value;
-  valeur=Number(this.plomberie.substring(0,(this.plomberie.length)-1));
-  let inputValue=document.querySelector("#Peinture").value;*/
-  valeur=0;
+  valeur="0";
+
+  ngOnInit() {
+    this.valeur=(parseFloat(document.getElementById("Peinture")!.getAttribute('value')||"")+parseFloat(document.getElementById("PVC")!.getAttribute('value')||"")+parseFloat(document.getElementById("Menuiserie")!.getAttribute('value')||"")+parseFloat(document.getElementById("Plomberie")!.getAttribute('value')||"")+parseFloat(document.getElementById("Autres")!.getAttribute('value')||"")).toString()+"DT"
+  }
+
 }
