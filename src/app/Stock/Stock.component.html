@@ -1,11 +1,13 @@
                     <!--TITRE-->
-<div class="container mb-5 pt-5">
-<div class=" w-75 container mt-5 mb-5 pt-5 " >
-    <h3 style="color: white; font-size: 30px;">Les catégories :</h3>
+
+<div class=" w-75 w-75 container mt-5 mb-5 pt-5 " >
+    <div class="w-75 container" >
+        <a style="color: white; font-size: 30px;">Les catégories :</a>
+    </div>
 </div>
-</div>
+
                     <!--CATEGORIES-->
-<div class=" pt-5 d-flex  mb-5 pt-5 " >
+<div class=" pt-5 d-flex  mb-5  " >
     <figure class="figure" style="margin-left: 10mm;" id="PVC" >
         <img src="assets/pvc.jpg"  title="PVC" class="rounded-circle"  routerLink="/Pvc" width="200" height="180" >
         <figcaption class="figure-caption pt-3" style="margin-left: 20mm; font-size: 20px; color: white;" >PVC</figcaption>
@@ -27,3 +29,39 @@
         <figcaption class="figure-caption pt-3" style="margin-left: 25mm; font-size: 22px; color: white">Autres</figcaption>
     </figure>
 </div>
+<div class=" w-75 w-75 container mt-5 mb-5 pt-5 " style="float: right;" >
+        <a class="btn mx-3 btn-lg  px-5" (click)="openForm()" style="color: black;" ><span>Ajouter un Article</span></a>
+        <a class="btn mx-3 btn-lg  px-5" style="color: black;"><span>Supprimer un article </span></a> 
+        <a class="btn mx-3 btn-lg  px-5" style="color: black;"><span>Mise à jour d'un article </span></a> 
+</div>
+
+                    <!--FORMULAIRE-->
+<div class="form-popup" id="myForm">
+    <h1>Nouveau Article</h1>
+    <form class="form-container"  (ngSubmit)="addArticle(formulaire)" #formulaire="ngForm" >
+  
+      <label for="nom"><b>Nom</b></label>
+      <input type="text" placeholder="Enter nom " id="nom" name="nom" ngModel required >
+  
+      <label for="prix_achat"><b>Prix d'achat</b></label>
+      <input type="number"  id="prix_achat" placeholder="0" name="prix_achat" ngModel required>
+
+      <label for="prix_vente"><b>Prix de vente</b></label>
+      <input type="number"  id="prix_vente" placeholder="0" name="prix_vente"ngModel required>
+
+      <label for="quantité"><b>Quantité</b></label>
+      <input type="text" placeholder="Enter quantité" id="quantité" name="quantité" ngModel required>
+
+      <label for="catégorie"><b>Catégorie</b></label>
+      <select  class="form-control" id="catégorie" name="catégorie" ngModel required>
+        <option value="pvc">PVC</option>
+        <option value="peinture">Peinture</option>
+        <option value="plomberie">Plomberie</option>
+        <option value="menuiserie">Menuiserie</option>
+        <option value="autres">Autres</option>
+      </select>
+      <button type="submit" class="btn  px-5 mt-5" [disabled]="formulaire.invalid">Enregister</button>
+      <button type="button" class="btn  px-5 mt-5" (click)="closeForm()">Fermer</button>
+    </form>
+    
+  </div>

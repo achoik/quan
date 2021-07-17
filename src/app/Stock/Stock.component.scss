@@ -6,3 +6,66 @@ img:hover{
 img{
     opacity: 0.8;
 }
+
+a.btn{
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #fae036;
+    border-color: #fae036;  
+    opacity: 0.8;
+}
+
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 500px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: white;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    
+    padding: 10px;
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:5px;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text],.form-container input[type=number]{
+    width: 100%;
+    padding: 15px;
+    border: #fae036;
+    background: #f1f1f1;
+    font-size: 15px;
+  }
+  
+  select{
+    font-size: 15px;
+  }
+  
+  /* Set a style for the submit/login button */
+  button {
+    background-color: gray;
+    color: black;
+    cursor: pointer;
+    margin-left: 40px;
+    margin-bottom:10px;
+    font-size: 15px;
+    font-weight: bold;
+    width: 30mm;
+  }
+
+  button:hover{
+    transform: scale(1.1);
+    border-color: black;
+  }
+  
+  label{
+      font-size: 15px;
+      font-weight: bold;
+  }

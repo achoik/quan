@@ -1,0 +1,31 @@
+
+<!-------TITRE------->
+<div class="container mt-5 pt-3 ">
+    <div class="d-flex" >
+      <h3 style="color: white; font-size: 30px; margin-left: 80px;">Autres :</h3>
+      <div class=" d-flex " style="position: absolute; right: 0; margin-right: 80px; width: 500px;" >
+        <input id="search" class="form-control w-50" type="text" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.. " name="search"  >
+        <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+</div>
+
+<div class="w-75 container pt-3 w-100" style=" height: 500px; color: aliceblue; overflow-y: auto; font-size: 20px; opacity: 0.9;">
+  
+    
+    <div class="col">
+        <div class="row w-100 card" style="background-color: gray;">
+            <div class="row">
+                <div class="col-8">Article</div>
+                <div class="col-2">Stock</div>
+            </div>
+        </div>
+        <div class="row bg-dark w-100 card" *ngFor="let article of filteredArticles;let i=index">
+            <div class="row">
+                <div class="col-8">{{article.nom}}</div>
+                <div class="col-2">{{article.stock}}</div>
+            </div>
+        </div>
+
+    </div>
+</div>

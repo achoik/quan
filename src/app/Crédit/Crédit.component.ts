@@ -6,4 +6,11 @@ import { Component} from '@angular/core';
   styleUrls: ['./Crédit.component.scss']
 })
 export class CréditComponent {
+  openForm() {
+    document.getElementById("myForm")!.style.display = "block";
+  }
+  
+   closeForm() {
+    document.getElementById("myForm")!.style.display = "none";
+  }
 }

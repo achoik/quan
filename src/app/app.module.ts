@@ -17,10 +17,13 @@ import { NavBarComponent } from './navbar/navbar.component';
 import { ProfitComponent } from './Profit/Profit.component';
 import { SearchComponent } from './search/Search.component';
 import { StockComponent } from './Stock/Stock.component';
-import { CatégorieComponent } from './Profit/catégorie/Catégorie.component';
-import { CatégoriesComponent } from './Stock/catégories/Catégories.component';
 import { ServerService } from './service/server.service';
-
+import { PeintureStockComponent } from './Stock/catégories/peinture Stock/peintureStock.component';
+import { PeintureProfitComponent } from './Profit/catégorie/peintureProfit/PeintureProfit.component';
+import { AutresStockComponent } from './Stock/catégories/autresStock/autresStock.component';
+import { PvcStockComponent } from './Stock/catégories/pvcStock/pvcStock.component';
+import { MenuiserieStockComponent } from './Stock/catégories/menuiserieStock/mznuiserieStock.component';
+import { PlomberieStockComponent } from './Stock/catégories/plomberieStock/plomberieStock.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,16 +32,16 @@ const appRoutes: Routes = [
   { path: 'Crédit', component: CréditComponent },
   { path: 'Profit', component: ProfitComponent },
   { path: 'Achat', component: AchatComponent },
-  { path: 'Peinture' , component: CatégorieComponent},
+  /*{ path: 'Peinture' , component: CatégorieComponent},
   { path: 'Plomberie' , component: CatégorieComponent},
   { path: 'Autres' , component: CatégorieComponent},
   { path: 'Menuiserie' , component: CatégorieComponent},
-  { path: 'PVC' , component: CatégorieComponent},
-  { path: 'Pvc' , component: CatégoriesComponent},
-  { path: 'plomberie' , component: CatégoriesComponent},
-  { path: 'menuiserie' , component: CatégoriesComponent},
-  { path: 'autres' , component: CatégoriesComponent},
-  { path: 'peinture' , component: CatégoriesComponent},
+  { path: 'PVC' , component: CatégorieComponent},*/
+  { path: 'plomberie' , component: PlomberieStockComponent},
+  { path: 'menuiserie' , component: MenuiserieStockComponent},
+  { path: 'Pvc' , component: PvcStockComponent},
+  { path: 'autres' , component: AutresStockComponent},
+  { path: 'peinture' , component: PeintureStockComponent},
 ];
 
 @NgModule({
@@ -52,8 +55,13 @@ const appRoutes: Routes = [
     AchatComponent,
     ClientComponent,
     SearchComponent,
-    CatégorieComponent,
-    CatégoriesComponent
+    PeintureStockComponent,
+    PeintureProfitComponent,
+    AutresStockComponent,
+    PvcStockComponent,
+    MenuiserieStockComponent,
+    PlomberieStockComponent,
+    
   ],
   imports: [
     BrowserModule,

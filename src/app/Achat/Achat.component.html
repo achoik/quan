@@ -1,12 +1,78 @@
-<app-Search></app-Search>
 
-<div>{{articles}}</div>
-
-<div class="w-75 container">
-<div class="w-75 container pt-5 ">
-    <a style="color: white ;background-color: transparent; font-size: 30px;">Total : </a>
-    <input readonly type="text" name="Total" value= "0" style="background-color: transparent; color: white; font-size: 18px;">
-    <a class="btn mx-3 btn-lg  px-5" target="_blank" routerLink="/Crédit"><span>Crédit</span></a>
-    <a class="btn mx-3 btn-lg  px-5" ><span>Cash</span></a>           
+<div class=" container pt-5 w-100" style=" height: 450px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+    <div class="d-flex pt-3">
+        <input id="search" class="form-control w-25" type="text" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.." name="search">
+        <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+    <div class="col pt-3">
+        <div class="row w-100 card " style="background-color: gray; ">
+            <div class="row">
+                <div class="col-6">Article</div>
+                <div class="col-2">Prix</div>
+                <div class="col-2">quantité</div>
+                <div class="col-2">Total</div>
+            </div>
+        </div>
+    <div class="container " style="overflow-y:auto; height: 420px;">
+        <div class="row bg-dark w-100 card my-1" *ngFor="let article of filteredArticles ;let i=index">
+            <div class="row">
+                <div class="col-6">{{article.nom}}</div>
+                <div class="col-2">{{article.prix_vente}}</div>
+                <div class="col-2">
+                    <input type="number" name="quantite" id="{{article.nom}}" (change)="article_quantity_change($event)" value=0 class="text-dark" max=50 min=0> <!--[max]={{article.maxStock}}-->
+                </div>
+                <div class="col-2">
+                    <input type="number" name="total" class="w-75 text-dark" readonly id="{{article.nom}}_total" value=0 style="color: white;">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class=" container pt-5" style="width: max-content;">
+<div class=" container pt-5">
+    <div class=" d-flex pt-5 ">
+        <input id="remise" type="number" (change)="changeRemise($event)" name="remise" defaultValue="0" value=0  >
+        <a class="btn mx-3 btn-lg  px-5" (click)="applyRemise()">Remise</a>
+        <a style="color: white ;background-color: transparent; font-size: 30px;">Total : </a>
+        <input readonly type="text" name="Total" value= "{{total}}" style="background-color: transparent; color: white; font-size: 18px;">
+        <a class="btn mx-3 btn-lg  px-5" target="_blank" routerLink="/Crédit"><span>Crédit</span></a>
+        <a class="btn mx-3 btn-lg  px-5" ><span>Cash</span></a>           
+    </div>
 </div>
 </div>
+<script>
+$(document).ready(function(){
+
+    var quantitiy=0;
+       $('.quantity-right-plus').click(function(e){
+            
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+            
+            // If is not undefined
+                
+                $('#quantity').val(quantity + 1);
+    
+              
+                // Increment
+            
+        });
+    
+         $('.quantity-left-minus').click(function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+            
+            // If is not undefined
+          
+                // Increment
+                if(quantity>0){
+                $('#quantity').val(quantity - 1);
+                }
+        });
+})
+        </script>

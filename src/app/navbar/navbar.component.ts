@@ -7,5 +7,15 @@ import { Component } from '@angular/core';
     })  
 
 export class NavBarComponent    
-{      
+{    
+    
+    
+    
+    /*search(){
+        var query = document.getElementById('search')?.getAttribute("value");
+        window.find(query);
+        return true;
+    }*/
+
+    
 }
