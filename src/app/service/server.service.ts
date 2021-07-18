@@ -42,8 +42,9 @@ export class ServerService {
       quantité: Qty,
       catégorie:Category,
    }
-   console.log(article);
-    return this.http.post('http://localhost:8080/ajouterArticle',article);
+     this.http.post('http://localhost:8080/ajouterArticle',article).subscribe(data => {
+      console.log(data);
+  })
   }
 
   updateArticle(article:any) {

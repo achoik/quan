@@ -36,7 +36,7 @@ a.btn{
   }
   
   /* Full-width input fields */
-  .form-container input[type=text],.form-container input[type=number]{
+  select,.form-container input[type=text],.form-container input[type=number]{
     width: 100%;
     padding: 15px;
     border: #fae036;
@@ -44,9 +44,7 @@ a.btn{
     font-size: 15px;
   }
   
-  select{
-    font-size: 15px;
-  }
+  
   
   /* Set a style for the submit/login button */
   button {

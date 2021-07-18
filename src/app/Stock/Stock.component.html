@@ -31,11 +31,10 @@
 </div>
 <div class=" w-75 w-75 container mt-5 mb-5 pt-5 " style="float: right;" >
         <a class="btn mx-3 btn-lg  px-5" (click)="openForm()" style="color: black;" ><span>Ajouter un Article</span></a>
-        <a class="btn mx-3 btn-lg  px-5" style="color: black;"><span>Supprimer un article </span></a> 
-        <a class="btn mx-3 btn-lg  px-5" style="color: black;"><span>Mise à jour d'un article </span></a> 
+        <a class="btn mx-3 btn-lg  px-5" (click)="openFormMiseAjour()" style="color: black;"><span>Mise à jour d'un article </span></a> 
 </div>
 
-                    <!--FORMULAIRE-->
+                    <!--FORMULAIRE Ajout Article-->
 <div class="form-popup" id="myForm">
     <h1>Nouveau Article</h1>
     <form class="form-container"  (ngSubmit)="addArticle(formulaire)" #formulaire="ngForm" >
@@ -62,6 +61,31 @@
       </select>
       <button type="submit" class="btn  px-5 mt-5" [disabled]="formulaire.invalid">Enregister</button>
       <button type="button" class="btn  px-5 mt-5" (click)="closeForm()">Fermer</button>
+    </form>
+    
+  </div>
+
+              <!--FORMULAIRE Mise à jour-->
+<div class="form-popup" id="FormMiseAjour">
+    <h1>Mise à jour</h1>
+    <form class="form-container"  (ngSubmit)="enregistrer(form)" #form="ngForm" >
+  
+      <label for="nom"><b>Nom</b></label>
+      <select>
+          <option id="name" *ngFor="let article of articles" ngModel required>{{article.nom}}</option>
+      </select>
+  
+      <label for="prix_achat"><b>Prix d'achat</b></label>
+      <input type="number"  id="prixAchat" placeholder='0' name="prix_achat" ngModel >
+
+      <label for="prix_vente"><b>Prix de vente</b></label>
+      <input type="number"  id="prixVente" placeholder='0' name="prix_vente"ngModel >
+
+      <label for="quantité"><b>Quantité</b></label>
+      <input type="text" placeholder='0' id="stock" name="quantité" ngModel >
+
+      <button type="submit" class="btn  px-5 mt-5" [disabled]="form.invalid">Enregister</button>
+      <button type="button" class="btn  px-5 mt-5" (click)="closeFormMiseAjour()">Fermer</button>
     </form>
     
   </div>
