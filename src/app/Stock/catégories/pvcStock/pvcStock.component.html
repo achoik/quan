@@ -4,7 +4,7 @@
     <div class="d-flex" >
       <h3 style="color: white; font-size: 30px; margin-left: 80px;">PVC :</h3>
       <div class=" d-flex " style="position: absolute; right: 0; margin-right: 80px; width: 500px;" >
-        <input id="search" class="form-control w-50" type="text" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.. " name="search"  >
+        <input id="search" class="form-control w-50" type="text" (ngModelChange)="applyFilter($event)" (keyup)="applyFilter($event)" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.. " name="search"  >
         <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
       </div>
     </div>

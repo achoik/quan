@@ -1,3 +1,24 @@
+input[type=text]{
+    
+  border-radius:20px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+button{
+  background-color: #fae036;
+  color:black;
+  padding: 5px 10px;
+  margin-left: 3px;
+  font-size: 15px;
+  border-radius:10px;
+  border: none;
+  cursor: pointer;
+  height: 35px;
+}
+
 a.btn{
     font-size: 15px;
     font-weight: bold;
@@ -64,4 +85,9 @@ a.btn{
   label{
       font-size: 15px;
       font-weight: bold;
+  }
+
+  a{
+    color: white;
+    font-size: 15px;
   }

@@ -42,17 +42,44 @@ export class ServerService {
       quantité: Qty,
       catégorie:Category,
    }
-     this.http.post('http://localhost:8080/ajouterArticle',article).subscribe(data => {
-      console.log(data);
-  })
+     this.http.post('http://localhost:8080/ajouterArticle',article).subscribe();
   }
 
-  updateArticle(article:any) {
-    return this.http.put('http://localhost:8080/article/${article.nom}', article);
+  updateArticleAchat(name:string,qty:number){
+    const article={
+      nom: name,
+      qty_vendue:qty
+    }
+    console.log(article);
+    this.http.put('http://localhost:8080/updateAchat', article).subscribe();
+  }
+
+  updateArticle(name:string,prixAchat:number,prixVente:number,Qty:number) {
+    const article={
+      nom : name,
+      prix_achat: prixAchat,
+      prix_vente: prixVente,
+      quantité: Qty
+   }
+     this.http.put('http://localhost:8080/update', article).subscribe();
   }
 
   deleteArticle(article:any) {
-    return this.http.delete('http://localhost:8080/article/${article.nom}');
+     this.http.delete('http://localhost:8080/article/${article.nom}');
+  }
+
+  getClients(){
+    return this.http.get('http://localhost:8080/clients');
+  }
+
+  addClient(name:string, surnom:string,numero:number){
+    const client={
+      nom : name,
+      surnom:surnom,
+      numero:numero
+   };
+    this.http.post('http://localhost:8080/ajouterClient', client).subscribe();
+   
   }
   
 }

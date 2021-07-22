@@ -23,6 +23,13 @@ export class AchatComponent implements OnInit{
   filteredArticles: any =[];
   searchValue: string="";
   
+  articlesAchetes:any =[];
+  articleAchete={
+    'nom': '',
+    'prix_unitaire' :0,
+    'quantité_achetée': 0
+  };
+  
   constructor(private server: ServerService) {}
   
 
@@ -30,17 +37,18 @@ export class AchatComponent implements OnInit{
    this.getArticles();
   }
 
+  
+
   applyFilter(eve:Event) {
     let search=this.searchValue;
     this.filteredArticles=_.filter(this.articles,function(item){
-      return item.nom.indexOf(search)>-1;
+      return item.nom.toLowerCase().indexOf(search.toLowerCase())>-1;
       });
   }
 
 
   changeRemise(eve: Event){
-    this.remise=Number((<HTMLInputElement>eve.target).value)
-    ;
+    this.remise=Number((<HTMLInputElement>eve.target).value);
   }
   
 
@@ -50,10 +58,14 @@ export class AchatComponent implements OnInit{
     let id = (input as HTMLInputElement).id;
     for (let i = 0; i < this.articles.length; i++) {
       if (this.articles[i].nom === id) {
-        document.getElementById(id+"_total")?.setAttribute("value",new Number(this.articles[i].prix_vente*quantity).toString())
+        document.getElementById(id+"_total")?.setAttribute("value",new Number(this.articles[i].prix_vente*quantity).toString());
+        document.getElementById(this.articles[i].nom)?.setAttribute("value",quantity.toString());
       }
     }
-    this.total+=Number(document.getElementById(id+"_total")?.getAttribute('value'))
+    this.total=0;
+    for (let i = 0; i < this.articles.length; i++) {
+      this.total+=Number(document.getElementById(this.articles[i].nom+"_total")?.getAttribute("value"))
+    }
   }
 
   applyRemise(){
@@ -66,5 +78,21 @@ export class AchatComponent implements OnInit{
       this.filteredArticles=this.articles;
     }
     );
+  }
+
+  facture(){ 
+    for (let i = 0; i < this.articles.length; i++) {
+      let qty=Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"));
+      if(qty!==0){
+        this.articleAchete = {
+          nom : this.articles[i].nom,
+          prix_unitaire : this.articles[i].prix_vente,
+          quantité_achetée : Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"))
+        };
+        this.server.updateArticleAchat(this.articleAchete.nom,this.articleAchete.quantité_achetée);
+        this.articlesAchetes.push(this.articleAchete);
+      }
+    }
+    console.log(this.articlesAchetes);
   }
 }

@@ -33,8 +33,8 @@ export class MenuiserieStockComponent implements OnInit{
   applyFilter(eve:Event) {
     let search=this.searchValue;
     this.filteredArticles=_.filter(this.articles,function(item){
-      return item.nom.indexOf(search)>-1;
-      });
+      return item.nom.toLowerCase().indexOf(search.toLowerCase())>-1;
+    });
   }
 
 }
