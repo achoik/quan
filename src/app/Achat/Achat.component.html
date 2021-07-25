@@ -19,10 +19,10 @@
                 <div class="col-6">{{article.nom}}</div>
                 <div class="col-2">{{article.prix_vente}}</div>
                 <div class="col-2">
-                    <input type="number" name="quantite" id="{{article.nom}}" (change)="article_quantity_change($event)" value=0 class="text-dark" max={{article.stock}} min=0> 
+                    <input type="number" name="quantite" id="{{article.nom}}" (change)="article_quantity_change($event)" value=0 class="text-dark w-50" max={{article.stock}} min=0> 
                 </div>
                 <div class="col-2 ">
-                    <input type="number" name="total" class="w-75 text-dark" readonly id="{{article.nom}}_total" value=0 style="color: white;">
+                    <input type="number" name="total" class="w-75 text-dark" readonly id="{{article.nom}}_total" class="w-100" value=0 style="color: black;">
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
             <a class="btn mx-3 btn-lg  px-5" (click)="applyRemise()">Remise</a>
             <h4 style="color: white ;background-color: transparent; font-size: 30px;">Total : </h4>
             <input readonly type="text" name="Total" value= "{{total}} DT" style="background-color: transparent; color: white;">
-            <a class="btn mx-3 btn-lg  px-5" target="_blank" (click)="facture()" routerLink="/Crédit"><span>Crédit</span></a>
-            <a class="btn mx-3 btn-lg  px-5" routerLink=""  (click)="facture()" ><span>Cash</span></a>           
+            <a class="btn mx-3 btn-lg  px-5" (click)="OnClickCredit()"><span>Crédit</span></a>
+            <a class="btn mx-3 btn-lg  px-5" routerLink="" ><span>Cash</span></a>        
         </div>
     </div>
 </div>

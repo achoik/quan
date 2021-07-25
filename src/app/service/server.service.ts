@@ -9,7 +9,7 @@ import { Form, NgForm } from '@angular/forms';
   providedIn: 'root'
 })
 export class ServerService {
-
+  totalCLient=0;
   constructor(private http: HttpClient) {
   }
 
@@ -50,7 +50,6 @@ export class ServerService {
       nom: name,
       qty_vendue:qty
     }
-    console.log(article);
     this.http.put('http://localhost:8080/updateAchat', article).subscribe();
   }
 
@@ -71,15 +70,60 @@ export class ServerService {
   getClients(){
     return this.http.get('http://localhost:8080/clients');
   }
+  updateTotalClient(id:number,total:number){
+    const totalfix={
+      id:id,
+      total:total
+    }
+    this.http.put('http://localhost:8080/updateTotal',totalfix).subscribe();
+  }
 
+  handleAddClient(form: NgForm, Articles: any){
+    this.addClient(form.value['nom'],form.value['surnom'],form.value['numero']).subscribe((id: any)=> {
+      for (let i =0; i<Articles.length;i++){
+        Articles[i]['id']=id[0]['id'];
+        this.totalCLient+=(Articles[i].prix_unitaire)*(Articles[i].quantité_achetée);
+      }
+      this.handleAddArticleAchete(Articles);
+      this.updateTotalClient(id[0].id,this.totalCLient);
+    }); 
+  }
+
+  GetClientByNomSurnom(nom_surnom: any){
+    return this.http.post('http://localhost:8080/GetClientNomSurnom',nom_surnom);
+  }
+
+  getArticlesAchetes(){
+    return this.http.get('http://localhost:8080/articlesAchetes');
+  }
+
+  handleAddArticleAchete(Article: any){ 
+    this.http.post('http://localhost:8080/ArticleAchete',Article).subscribe();
+  }
   addClient(name:string, surnom:string,numero:number){
     const client={
       nom : name,
       surnom:surnom,
       numero:numero
    };
-    this.http.post('http://localhost:8080/ajouterClient', client).subscribe();
+    return this.http.post('http://localhost:8080/ajouterClient', client);
    
+  }
+
+  handleTransaction(id:number,total:number){
+    const totalfix={
+      id:id,
+      total:total
+    }
+    this.http.put('http://localhost:8080/transaction',totalfix).subscribe(); 
+  }
+  AddTransaction(id:number,total:number,date:Date){
+    const totalfix={
+      id:id,
+      total:total,
+      date:date
+    }
+    this.http.put('http://localhost:8080/ajouterTransaction',totalfix).subscribe(); 
   }
   
 }

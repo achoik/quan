@@ -1,0 +1,31 @@
+
+
+ <div class=" d-flex pt-5 mt-5" style="position: absolute; right: 0; margin-right: 50px; width: 500px;" >
+    <input id="search" class="form-control w-50" type="text" (ngModelChange)="applyFilter($event)" (keyup)="applyFilter($event)" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.. " name="search"  >
+    <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
+  </div>
+  
+  <div class=" w-75  container mt-5 mb-5 pt-4 "  >
+      <a style="color: white; font-size: 30px; ">Liste des clients :</a>
+  </div>
+  <div class=" container  " style=" height: 450px; width: 650px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+    <div class="col">
+      <div class="row card " style="background-color: gray; font-size: 20px; font-family:Georgia, 'Times New Roman', Times, serif; ">
+        <div class="row">
+            <div class="col-6">Client</div>
+            <div class="col-6">Total crédit</div>
+        </div>   
+      </div>
+      <div class="container " style="overflow-y:auto; height: 420px;">
+        <div class="row bg-dark  card my-1"  name="client" *ngFor="let client of filteredClients ;let i=index">
+            <div class="row"  (click)="onClickNomClient(i)" >
+                <div class="col-6">{{client.nom}} ({{client.surnom}})</div>
+                <div class="col-6">{{client.total}} DT</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

@@ -5,6 +5,8 @@ import { ServerService } from '../service/server.service';
 import { JsonpClientBackend } from '@angular/common/http';
 import { values } from 'lodash';
 import * as _ from 'lodash';
+import { StateService } from '../state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-Crédit',
@@ -17,8 +19,8 @@ export class CréditComponent implements OnInit {
   clients :any =[];
   filteredClients: any =[];
   searchValue: string="";
-  constructor(private server: ServerService) {}
-
+  total=0;
+  constructor(private server: ServerService, private stateService: StateService, public router: Router) {}
 
   ngOnInit() {
     this.getClients();
@@ -36,9 +38,9 @@ export class CréditComponent implements OnInit {
     this.server.getClients().subscribe((data) =>{
       this.clients=data;
       this.filteredClients=this.clients;
-      console.log(this.filteredClients);
     }
-    );
+    );    
+
   }
   applyFilter(eve:Event) {
     let search=this.searchValue;
@@ -47,12 +49,27 @@ export class CréditComponent implements OnInit {
     });
   }
 
-  addClient(form: NgForm){
-    const nom = form.value['nom'];
-    const surnom=form.value['surnom'];
-    const numero= form.value['numero'];
-    this.server.addClient(nom,surnom,numero);
+  onClickNomClient(index: number){
+    this.stateService.state.subscribe((Articles: any)=>{
+      this.server.GetClientByNomSurnom({nom:this.clients[index]['nom'],surnom:this.clients[index]['surnom']}).subscribe((id: any)=>{
+        for (let i =0; i<Articles.length;i++){
+          Articles[i]['id']=id[0]['id'];
+          this.total+=(Articles[i].prix_unitaire)*(Articles[i].quantité_achetée);
+        }
+        this.server.handleAddArticleAchete(Articles);
+        this.server.updateTotalClient(id[0].id,this.total);
+        this.stateService.destroyData();
+      });
+    });
+    this.router.navigate(['/Client', this.clients[index].id ]);
+  }
+
+  onClickAddClient(form: NgForm){
+    this.stateService.state.subscribe((Articles)=>{
+      this.server.handleAddClient(form, Articles);
+    });
     this.closeForm();
+    this.stateService.destroyData();
   }
 
 }

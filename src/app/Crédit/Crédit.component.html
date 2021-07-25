@@ -4,21 +4,21 @@
   <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
 </div>
 
-<div class=" w-75  container mt-5 mb-5 pt-5 "  >
+<div class=" w-75  container mt-5 mb-5 pt-4 "  >
     <a style="color: white; font-size: 30px; ">Liste des clients :</a>
     <a class="btn mx-3 btn-lg  px-5" style="color: black; float: right;" (click)="openForm()" ><span>Ajouter un client</span></a>
 </div>
-<div class=" container  " style=" height: 450px; width: 600px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+<div class=" container  " style=" height: 450px; width: 650px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
   <div class="col">
     <div class="row card " style="background-color: gray; font-size: 20px; font-family:Georgia, 'Times New Roman', Times, serif; ">
       <div class="row">
           <div class="col-6">Client</div>
           <div class="col-6">Total crédit</div>
-      </div>
+      </div>   
     </div>
-    <div class="container " style="overflow-y:auto;">
-      <div class="row bg-dark  card my-1" *ngFor="let client of filteredClients ;let i=index">
-          <div class="row">
+    <div class="container " style="overflow-y:auto; height: 420px;">
+      <div class="row bg-dark  card my-1"  name="client" *ngFor="let client of filteredClients ;let i=index">
+          <div class="row"  (click)="onClickNomClient(i)" >
               <div class="col-6">{{client.nom}} ({{client.surnom}})</div>
               <div class="col-6">{{client.total}} DT</div>
           </div>
@@ -29,7 +29,7 @@
 
 
 <div class="form-popup" id="FormClient">
-    <form class="form-container" (ngSubmit)="addClient(formulaire)" #formulaire="ngForm">
+    <form class="form-container" (ngSubmit)="onClickAddClient(formulaire)" #formulaire="ngForm">
       <h1>Nouveau client</h1>
   
       <label for="nom"><b>Nom</b></label>
@@ -41,7 +41,7 @@
       <label for="numero"><b>Numéro</b></label>
       <input type="tel" id="numero" name="numero" placeholder="téléphone" pattern="[0-9]{8}" ngModel >
   
-      <button type="submit" class="btn"  [disabled]="formulaire.invalid">Enregister</button>
+      <button type="submit" class="btn" routerLink="/Client" [disabled]="formulaire.invalid">Enregister</button>
       <button type="button" class="btn" (click)="closeForm()">Fermer</button>
     </form>
   </div>

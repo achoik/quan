@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientComponent } from './CLients/Client.component';
+import { ClientComponent } from './CLient/Client.component';
 import { CréditComponent } from './Crédit/Crédit.component';
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './navbar/navbar.component';
@@ -24,12 +24,15 @@ import { AutresStockComponent } from './Stock/catégories/autresStock/autresStoc
 import { PvcStockComponent } from './Stock/catégories/pvcStock/pvcStock.component';
 import { MenuiserieStockComponent } from './Stock/catégories/menuiserieStock/mznuiserieStock.component';
 import { PlomberieStockComponent } from './Stock/catégories/plomberieStock/plomberieStock.component';
+import { ClientsComponent } from './clients/clients.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Quincaillerie Nader && Jawhar', component: HomeComponent },
   { path: 'Stock', component: StockComponent },
   { path: 'Crédit', component: CréditComponent },
+  { path: 'Client/:id', component: ClientComponent },
+  { path: 'Clients', component: ClientsComponent},
   { path: 'Profit', component: ProfitComponent },
   { path: 'Achat', component: AchatComponent },
   /*{ path: 'Peinture' , component: CatégorieComponent},
@@ -61,7 +64,7 @@ const appRoutes: Routes = [
     PvcStockComponent,
     MenuiserieStockComponent,
     PlomberieStockComponent,
-    
+    ClientsComponent
   ],
   imports: [
     BrowserModule,

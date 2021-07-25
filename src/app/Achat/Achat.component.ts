@@ -5,6 +5,8 @@ import { ServerService } from '../service/server.service';
 import { JsonpClientBackend } from '@angular/common/http';
 import { values } from 'lodash';
 import * as _ from 'lodash';
+import { StateService,State } from '../state.service';
+import { Router } from '@angular/router';
 
 
 
@@ -30,7 +32,7 @@ export class AchatComponent implements OnInit{
     'quantité_achetée': 0
   };
   
-  constructor(private server: ServerService) {}
+  constructor(private server: ServerService ,private stateService: StateService, public router: Router) {}
   
 
   ngOnInit() {
@@ -80,7 +82,7 @@ export class AchatComponent implements OnInit{
     );
   }
 
-  facture(){ 
+  OnClickCredit(){ 
     for (let i = 0; i < this.articles.length; i++) {
       let qty=Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"));
       if(qty!==0){
@@ -93,6 +95,12 @@ export class AchatComponent implements OnInit{
         this.articlesAchetes.push(this.articleAchete);
       }
     }
-    console.log(this.articlesAchetes);
+    //console.log(this.articlesAchetes);
+    this.stateService.loadData(this.articlesAchetes);
+    
+    this.stateService.state.subscribe( (data) =>{
+      this.router.navigate(['/Crédit']);
+     
+    })
   }
 }
