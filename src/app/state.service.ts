@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-const INITIAL_STATE: State [] = [{"nom": "", "prix_unitaire": 0, "quantité_achetée": 0}];
+const INITIAL_STATE: State [] = [{"nom": "", "prix_unitaire": 0, "quantite_achetee": 0}];
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,5 @@ export class StateService {
 export interface State {
   nom: string;
   prix_unitaire: number;
-  quantité_achetée: number
+  quantite_achetee: number
 }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Form, NgForm } from '@angular/forms';
+import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ServerService {
 
 
 
-
+  //--------------------------Articles-------------------------------
   getArticles(){
     return this.http.get('http://localhost:8080/articles');
   }
@@ -45,6 +46,23 @@ export class ServerService {
      this.http.post('http://localhost:8080/ajouterArticle',article).subscribe();
   }
 
+  updateArticle(name:string,prixAchat:number,prixVente:number,Qty:number) {
+    const article={
+      nom : name,
+      prix_achat: prixAchat,
+      prix_vente: prixVente,
+      quantité: Qty
+   }
+    this.http.put('http://localhost:8080/update', article).subscribe();
+  }
+
+
+    //--------------------------Articles Achetés-------------------------------
+
+  getArticlesAchetes(){
+    return this.http.get('http://localhost:8080/articlesAchetes');
+  }
+
   updateArticleAchat(name:string,qty:number){
     const article={
       nom: name,
@@ -53,20 +71,23 @@ export class ServerService {
     this.http.put('http://localhost:8080/updateAchat', article).subscribe();
   }
 
-  updateArticle(name:string,prixAchat:number,prixVente:number,Qty:number) {
-    const article={
-      nom : name,
-      prix_achat: prixAchat,
-      prix_vente: prixVente,
-      quantité: Qty
-   }
-     this.http.put('http://localhost:8080/update', article).subscribe();
+  handleAddArticleAchete(Article: any){ 
+    return this.http.post('http://localhost:8080/ArticleAchete',Article);
   }
 
-  deleteArticle(article:any) {
-     this.http.delete('http://localhost:8080/article/${article.nom}');
+  handleDeleteArticleAchete(Article:any){
+    this.http.delete('http://localhost:8080/articleAchete',({
+      body: Article
+   })).subscribe();
+  }
+  deleteArticle(Article:any){
+    this.http.put('http://localhost:8080/deleteArticleAchete',Article).subscribe();
   }
 
+     //--------------------------Clients-------------------------------
+
+
+ 
   getClients(){
     return this.http.get('http://localhost:8080/clients');
   }
@@ -75,14 +96,15 @@ export class ServerService {
       id:id,
       total:total
     }
-    this.http.put('http://localhost:8080/updateTotal',totalfix).subscribe();
+    return this.http.put('http://localhost:8080/updateTotal',totalfix);
   }
+
 
   handleAddClient(form: NgForm, Articles: any){
     this.addClient(form.value['nom'],form.value['surnom'],form.value['numero']).subscribe((id: any)=> {
       for (let i =0; i<Articles.length;i++){
         Articles[i]['id']=id[0]['id'];
-        this.totalCLient+=(Articles[i].prix_unitaire)*(Articles[i].quantité_achetée);
+        this.totalCLient+=(Articles[i].prix_unitaire)*(Articles[i].quantite_achetee);
       }
       this.handleAddArticleAchete(Articles);
       this.updateTotalClient(id[0].id,this.totalCLient);
@@ -91,15 +113,12 @@ export class ServerService {
 
   GetClientByNomSurnom(nom_surnom: any){
     return this.http.post('http://localhost:8080/GetClientNomSurnom',nom_surnom);
+    
   }
 
-  getArticlesAchetes(){
-    return this.http.get('http://localhost:8080/articlesAchetes');
-  }
+  
 
-  handleAddArticleAchete(Article: any){ 
-    this.http.post('http://localhost:8080/ArticleAchete',Article).subscribe();
-  }
+ 
   addClient(name:string, surnom:string,numero:number){
     const client={
       nom : name,
@@ -110,20 +129,27 @@ export class ServerService {
    
   }
 
-  handleTransaction(id:number,total:number){
+  //--------------------------Transactions-------------------------------
+
+
+  handleTotal(id:number,total:number){
     const totalfix={
       id:id,
       total:total
     }
-    this.http.put('http://localhost:8080/transaction',totalfix).subscribe(); 
+    this.http.put('http://localhost:8080/total-',totalfix).subscribe(); 
   }
   AddTransaction(id:number,total:number,date:Date){
-    const totalfix={
-      id:id,
-      total:total,
+    const transaction={
+      id_client:id,
+      montant:total,
       date:date
     }
-    this.http.put('http://localhost:8080/ajouterTransaction',totalfix).subscribe(); 
+    this.http.post('http://localhost:8080/ajouterTransaction',transaction).subscribe(); 
+  }
+
+  getTransaction(){
+    return this.http.get('http://localhost:8080/getTransactions');
   }
   
 }

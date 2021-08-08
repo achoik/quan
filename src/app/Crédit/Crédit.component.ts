@@ -54,14 +54,19 @@ export class CréditComponent implements OnInit {
       this.server.GetClientByNomSurnom({nom:this.clients[index]['nom'],surnom:this.clients[index]['surnom']}).subscribe((id: any)=>{
         for (let i =0; i<Articles.length;i++){
           Articles[i]['id']=id[0]['id'];
-          this.total+=(Articles[i].prix_unitaire)*(Articles[i].quantité_achetée);
+          this.total+=(Articles[i].prix_unitaire)*(Articles[i].quantite_achetee);
         }
-        this.server.handleAddArticleAchete(Articles);
-        this.server.updateTotalClient(id[0].id,this.total);
-        this.stateService.destroyData();
+        this.server.handleAddArticleAchete(Articles).subscribe(()=> {
+          this.server.updateTotalClient(id[0].id,this.total).subscribe(()=> {
+            this.stateService.destroyData();
+            this.router.navigate(['/Client', this.clients[index].id ]);
+          })
+          
+        })
+        
       });
     });
-    this.router.navigate(['/Client', this.clients[index].id ]);
+   
   }
 
   onClickAddClient(form: NgForm){

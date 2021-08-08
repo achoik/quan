@@ -1,4 +1,4 @@
-<div class="mt-5 pt-5">
+<div class="pt-5">
   <div class=" pt-5 d-flex justify-content-center mb-5">
     <img src="assets/logo.png"  width="300" >
   </div>
@@ -8,9 +8,32 @@
 
       <a class="hv btn btn-light mx-3 btn-lg px-5"   routerLink="/Clients"><span>Clients</span></a>
     
+      <a class="hv btn btn-light mx-3 btn-lg  px-5" (click)="openForm()" ><span>Echange</span></a>
+
       <a class="hv btn btn-light mx-3 btn-lg px-5"  routerLink="/Stock"><span>Stock</span></a>
 
       <a class="hv btn btn-light mx-3 btn-lg px-5"   routerLink="/Profit" ><span>Profit</span></a>
 
   </div>
+</div>
+
+
+<!--Form Echange-->
+
+<div class="form-popup" id="echangeForm">
+  <h1>Echange</h1>
+  <form class="form-container"  (ngSubmit)="enregistrer(f)" #f="ngForm" >
+
+    <label for="nom"><b>Nom</b></label>
+    <select id="nom" ngModel name="nom">
+        <option disabled selected> choisir un article</option>
+        <option *ngFor="let article of articles"  value={{article.nom}} required>{{article.nom}}</option>
+    </select>
+
+    <label for="qty"><b>quantité à rendre</b></label>
+    <input type="number"  id="qty" placeholder='0' value=0 name="qty" ngModel required >
+
+    <button type="submit" class="btn  px-5 mt-5" [disabled]="f.invalid">Enregister</button>
+    <button type="button" class="btn  px-5 mt-5" (click)="closeForm()">Fermer</button>
+  </form>
 </div>

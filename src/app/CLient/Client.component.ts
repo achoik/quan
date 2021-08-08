@@ -18,6 +18,8 @@ export class ClientComponent implements OnInit {
    private sub: any;
    id=0;
    clients:any=[];
+   transactions:any=[];
+   transactionsPerClient:any=[];
    client:any;
    articlesAchetes:any=[];
    articlesAchetesPerClient:any=[];
@@ -29,7 +31,7 @@ export class ClientComponent implements OnInit {
         });
         this.getClient();
         this.getArticlesAchetes();
-        
+        this.getTransactions();
     }
 
     getClient(){
@@ -55,8 +57,17 @@ export class ClientComponent implements OnInit {
         });
     }
 
-    delete(){
-
+    delete(index: number){
+        const article={
+            nom:this.articlesAchetesPerClient[index].nom,
+            qty:this.articlesAchetesPerClient[index].quantite_achetee,
+            prix_unitaire:this.articlesAchetesPerClient[index].prix_unitaire,
+            id_client:this.id
+        }
+        this.server.handleDeleteArticleAchete(article);  
+        this.server.handleTotal(this.id,(article.qty*article.prix_unitaire));
+        this.server.deleteArticle(article);
+        location.reload();      
     }
 
     openForm() {
@@ -70,9 +81,21 @@ export class ClientComponent implements OnInit {
     onClickEnregistrer(f:NgForm){
         const montant = f.value['montant'];
         const date = f.value['date'];
-        this.server.handleTransaction(this.id,montant);
+        this.server.handleTotal(this.id,montant);
         this.server.AddTransaction(this.id,montant,date);
-        
+        this.closeForm();
+    }
+
+    getTransactions(){
+        this.server.getTransaction().subscribe((data) =>{
+            let i=0;
+            this.transactions=data;
+           for(i=0;i<this.transactions.length;i++){
+               if (this.transactions[i].id_client===this.id){
+                this.transactionsPerClient.push(this.transactions[i]);
+               }
+           }
+        });
     }
 
 }

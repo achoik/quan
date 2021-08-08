@@ -1,6 +1,6 @@
 import { Component,Input,OnInit} from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ServerService } from '../service/server.service';
 import { JsonpClientBackend } from '@angular/common/http';
 import { values } from 'lodash';
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 
 export class AchatComponent implements OnInit{
  
+  credit= false;
   remise=0;
   articles: any =[];
   total=0;
@@ -29,7 +30,7 @@ export class AchatComponent implements OnInit{
   articleAchete={
     'nom': '',
     'prix_unitaire' :0,
-    'quantité_achetée': 0
+    'quantite_achetee': 0
   };
   
   constructor(private server: ServerService ,private stateService: StateService, public router: Router) {}
@@ -82,25 +83,69 @@ export class AchatComponent implements OnInit{
     );
   }
 
+
+  openForm() {
+    document.getElementById("confirmForm")!.style.display = "block";
+  }
+
+  closeForm() {
+    document.getElementById("confirmForm")!.style.display = "none";
+  }
   OnClickCredit(){ 
+    this.credit=true;
+    this.openForm();
     for (let i = 0; i < this.articles.length; i++) {
       let qty=Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"));
       if(qty!==0){
         this.articleAchete = {
           nom : this.articles[i].nom,
           prix_unitaire : this.articles[i].prix_vente,
-          quantité_achetée : Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"))
+          quantite_achetee : Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"))
         };
-        this.server.updateArticleAchat(this.articleAchete.nom,this.articleAchete.quantité_achetée);
+        this.articlesAchetes.push(this.articleAchete);
+      } 
+    } 
+  }
+
+
+  OnClickCash(){
+    this.credit=false;
+    this.openForm();
+    for (let i = 0; i < this.articles.length; i++) {
+      let qty=Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"));
+      if(qty!==0){
+        this.articleAchete = {
+          nom : this.articles[i].nom,
+          prix_unitaire : this.articles[i].prix_vente,
+          quantite_achetee : Number(document.getElementById(this.articles[i].nom)?.getAttribute("value"))
+        };
         this.articlesAchetes.push(this.articleAchete);
       }
+    } 
+  }
+
+  confirmer(){
+    this.closeForm();
+    let i=0
+    if(this.credit===true){
+      for(i=0;i<this.articlesAchetes.length;i++){
+        this.server.updateArticleAchat(this.articlesAchetes[i].nom,this.articlesAchetes[i].quantite_achetee);
+        this.stateService.loadData(this.articlesAchetes);
+        this.stateService.state.subscribe( (data) =>{
+          this.router.navigate(['/Crédit']);
+        });
+      }
     }
-    //console.log(this.articlesAchetes);
-    this.stateService.loadData(this.articlesAchetes);
-    
-    this.stateService.state.subscribe( (data) =>{
-      this.router.navigate(['/Crédit']);
-     
-    })
+    else{
+      for(i=0;i<this.articlesAchetes.length;i++){
+        this.server.updateArticleAchat(this.articlesAchetes[i].nom,this.articlesAchetes[i].quantite_achetee);
+        location.reload();
+      }
+    }
+  }
+
+  annuler(){
+    this.closeForm();
+    location.reload();
   }
 }

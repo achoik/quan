@@ -1,3 +1,9 @@
+.icon{
+    height: 40px;
+    width: 40px;
+    color: white;
+}
+
 a.btn{
     font-size: 20px;
     font-weight: bold;
@@ -7,23 +13,28 @@ a.btn{
 a.btn:hover{
     font-size: 22px;
     border-color: black;
+    height: 40px;
 }
 input[name="remise"]:focus{
     background-color: white;
     color: black;
+    height: 40px;
 }
 input[name="quantite"]:focus{
     background-color: white;
     color: black;
+    height: 40px;
 }
 input[name="remise"]{
     background-color: transparent;
     font-weight: bold;
     font-size: 18px;
+    height: 40px;
 }
 input[type=text]{
     font-size: 18px;
     font-weight: bold;
+    height: 40px;
 }
 
 
@@ -38,6 +49,26 @@ button{
     border: none;
     cursor: pointer;
 }
+
+.form-popup {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 500px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: white;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    
+    padding: 10px;
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:5px;
+  }
+  
 
 
 

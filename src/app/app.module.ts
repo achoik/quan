@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes} from '@angular/router';
 import { AchatComponent } from './Achat/Achat.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -19,7 +19,6 @@ import { SearchComponent } from './search/Search.component';
 import { StockComponent } from './Stock/Stock.component';
 import { ServerService } from './service/server.service';
 import { PeintureStockComponent } from './Stock/catégories/peinture Stock/peintureStock.component';
-import { PeintureProfitComponent } from './Profit/catégorie/peintureProfit/PeintureProfit.component';
 import { AutresStockComponent } from './Stock/catégories/autresStock/autresStock.component';
 import { PvcStockComponent } from './Stock/catégories/pvcStock/pvcStock.component';
 import { MenuiserieStockComponent } from './Stock/catégories/menuiserieStock/mznuiserieStock.component';
@@ -59,7 +58,6 @@ const appRoutes: Routes = [
     ClientComponent,
     SearchComponent,
     PeintureStockComponent,
-    PeintureProfitComponent,
     AutresStockComponent,
     PvcStockComponent,
     MenuiserieStockComponent,
@@ -71,6 +69,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

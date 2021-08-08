@@ -5,3 +5,48 @@
 .hv{
 	font-size: 35px;
 }
+
+ /* The popup form - hidden by default */
+ .form-popup {
+    display: none;
+    position: absolute;
+    top: 100px;
+    right: 500px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: white;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    
+    padding: 10px;
+    display:grid;
+    grid-template-columns: max-content max-content;
+    grid-gap:5px;
+  }
+  
+  /* Full-width input fields */
+  select,.form-container input[type=text],.form-container input[type=number]{
+    width: 100%;
+    padding: 15px;
+    border: #fae036;
+    background: #f1f1f1;
+    font-size: 15px;
+  }
+
+
+  label{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.form-container button[type=submit],.form-container button[type=button]{
+  width: 120px;
+  height: 50px;
+  padding: 15px;
+  border: #fae036;
+  background: #fae036;
+  font-size: 15px;
+  margin-left: 60px;
+}

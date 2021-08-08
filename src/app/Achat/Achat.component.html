@@ -1,10 +1,10 @@
 
-<div class=" container pt-5 w-100" style=" height: 450px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+<div class=" container pt-4 w-100" style=" height: 400px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
     <div class="d-flex pt-3">
         <input id="search" class="form-control w-25" type="text"(ngModelChange)="applyFilter($event)" (keyup)="applyFilter($event)" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.." name="search">
         <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
     </div>
-    <div class="col pt-3">
+    <div class="col pt-2">
         <div class="row w-100 card " style="background-color: gray; ">
             <div class="row">
                 <div class="col-6">Article</div>
@@ -34,10 +34,39 @@
         <div class=" d-flex pt-5 ">
             <input id="remise" type="number" (change)="changeRemise($event)" name="remise" value=0  >
             <a class="btn mx-3 btn-lg  px-5" (click)="applyRemise()">Remise</a>
-            <h4 style="color: white ;background-color: transparent; font-size: 30px;">Total : </h4>
+            <h4 style="color: white ;background-color: transparent; font-size: 30px;">Total: </h4>
             <input readonly type="text" name="Total" value= "{{total}} DT" style="background-color: transparent; color: white;">
             <a class="btn mx-3 btn-lg  px-5" (click)="OnClickCredit()"><span>Crédit</span></a>
-            <a class="btn mx-3 btn-lg  px-5" routerLink="" ><span>Cash</span></a>        
+            <a class="btn mx-3 btn-lg  px-5" (click)="OnClickCash()" ><span>Cash</span></a>        
         </div>
     </div>
 </div>
+
+
+
+              <!--FORMULAIRE confirmation-->
+              
+<div class="form-popup" id="confirmForm" style="height:500px;width: 500px;">
+    <h1>Confirmation</h1>
+    <form class="form-container"  >
+        <div class="col  align-self-center" style="height: 350px;width: 450px;">
+            <div class="row w-100 card " style="background-color: gray; font-size: 18px;">
+                <div class="row">
+                    <div class="col">Article</div>
+                    <div class="col">quantité</div>
+                </div>
+            </div>
+            <div class="container " style="overflow-y:auto; height: 420px;font-size:18px;color: white;">
+                <div class="row bg-dark w-100 card my-1" *ngFor="let article of articlesAchetes ;let i=index">
+                    <div class="row">
+                        <div class="col">{{article.nom}}</div>
+                        <div class="col">{{article.quantite_achetee}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn  px-5 mt-5" style=" position: absolute;bottom: 0; font-size: 20px; font-weight: bold;"(click)="confirmer()" >Confirmer</button>
+        <button type="button" class="btn  px-5 mt-5" style=" position: absolute;bottom: 0;left: 200px; font-size: 20px; font-weight: bold;" (click)="annuler()">Annuler</button>
+    </form>
+    
+  </div>
