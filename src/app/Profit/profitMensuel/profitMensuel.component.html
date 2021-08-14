@@ -1,0 +1,41 @@
+
+<div class="split left" >
+    <div class="container  mt-5"style="background-color: rgba(128, 128, 128, 0.308);">
+        <a for="date" style="color: white; font-size: 30px; margin-left: 20px; ">choisir le mois :  </a>
+        <input type="date"  [(ngModel)]="date" (ngModelChange)="applyDate($event)" style="width: 230px;height: 40px;background-color: #fbe550;font-size: 20px;">
+    </div>
+    
+    <div class=" container w-75 pt-5" style="width: max-content ;">
+        <div class=" container pt-5">
+            <div class="d-flex pt-2 ">
+                <h4 style="color:rgb(0, 0, 0); background-color: transparent; font-size: 35px; ">Profit Total : </h4>
+                <input readonly type="text" name="Total" value= "{{profitTotal}} DT" style="background-color: rgb(204, 204, 204); margin-left: 15px; font-weight: bold; ">
+            </div>
+            <div class="d-flex pt-3">
+                <h4 style="color:rgb(0, 0, 0); background-color: transparent; font-size: 35px;">Profit Net : </h4>
+                <input readonly type="text" name="Total" value= "{{profitNet}} DT" style="background-color: rgb(204, 204, 204); margin-left: 32px;font-weight: bold;">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="split right">
+    <div class=" container pt-5 w-100" style=" height: 350px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+        <div class="col pt-5">
+            <div class="row w-100 card mt-3 " style="background-color: gray; ">
+                <div class="row">
+                    <div class="col-6">Article</div>
+                    <div class="col-2">quantité</div>
+                </div>
+            </div>
+            <div class="container " style="overflow-y:auto; height: 300px;">
+                <div class="row bg-dark w-100 card my-1" *ngFor="let article of filteredArticles ;let i=index" style="color: white;">
+                    <div class="row">
+                        <div class="col-6">{{article.nom_article}}</div>
+                        <div class="col-2">{{article.qte_achetee}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

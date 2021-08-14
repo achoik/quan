@@ -24,6 +24,10 @@ import { PvcStockComponent } from './Stock/catégories/pvcStock/pvcStock.compone
 import { MenuiserieStockComponent } from './Stock/catégories/menuiserieStock/mznuiserieStock.component';
 import { PlomberieStockComponent } from './Stock/catégories/plomberieStock/plomberieStock.component';
 import { ClientsComponent } from './clients/clients.component';
+import { profitJournalComponent } from './Profit/profitJournal/profitJournal.component';
+import { profitMensuelComponent } from './Profit/profitMensuel/profitMensuel.component';
+import { profitAnnuelComponent } from './Profit/profitAnnuel/profitAnnuel.component';
+import { profitHebdomadaireComponent } from './Profit/profitHebdomadaire/profitHebdomadaire.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -44,6 +48,10 @@ const appRoutes: Routes = [
   { path: 'Pvc' , component: PvcStockComponent},
   { path: 'autres' , component: AutresStockComponent},
   { path: 'peinture' , component: PeintureStockComponent},
+  { path: 'profitJournal' , component: profitJournalComponent},
+  { path: 'profitMensuel' , component: profitMensuelComponent},
+  { path: 'profitAnnuel' , component: profitAnnuelComponent},
+  { path: 'profitHebdomadaire' , component: profitHebdomadaireComponent},
 ];
 
 @NgModule({
@@ -62,7 +70,11 @@ const appRoutes: Routes = [
     PvcStockComponent,
     MenuiserieStockComponent,
     PlomberieStockComponent,
-    ClientsComponent
+    ClientsComponent,
+    profitJournalComponent,
+    profitMensuelComponent,
+    profitAnnuelComponent,
+    profitHebdomadaireComponent
   ],
   imports: [
     BrowserModule,

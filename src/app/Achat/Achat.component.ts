@@ -7,6 +7,7 @@ import { values } from 'lodash';
 import * as _ from 'lodash';
 import { StateService,State } from '../state.service';
 import { Router } from '@angular/router';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 
@@ -25,7 +26,6 @@ export class AchatComponent implements OnInit{
   total=0;
   filteredArticles: any =[];
   searchValue: string="";
-  
   articlesAchetes:any =[];
   articleAchete={
     'nom': '',
@@ -40,7 +40,7 @@ export class AchatComponent implements OnInit{
    this.getArticles();
   }
 
-  
+
 
   applyFilter(eve:Event) {
     let search=this.searchValue;
@@ -55,19 +55,12 @@ export class AchatComponent implements OnInit{
   }
   
 
-  article_quantity_change(eve: Event){
-    let input= eve.currentTarget;
-    let quantity=parseInt((input as HTMLInputElement).value);
-    let id = (input as HTMLInputElement).id;
-    for (let i = 0; i < this.articles.length; i++) {
-      if (this.articles[i].nom === id) {
-        document.getElementById(id+"_total")?.setAttribute("value",new Number(this.articles[i].prix_vente*quantity).toString());
-        document.getElementById(this.articles[i].nom)?.setAttribute("value",quantity.toString());
-      }
-    }
+  article_quantity_change(eve: Event, i: any){// ayyah
+    
+    this.articles[i].total=this.articles[i].prix_vente*this.articles[i].quantity;
     this.total=0;
     for (let i = 0; i < this.articles.length; i++) {
-      this.total+=Number(document.getElementById(this.articles[i].nom+"_total")?.getAttribute("value"))
+      this.total+=this.articles[i].total;
     }
   }
 
@@ -78,9 +71,15 @@ export class AchatComponent implements OnInit{
   getArticles()  {
     this.server.getArticles().subscribe((data) =>{
       this.articles=data;
+      for (let i=0;i<this.articles.length;i++){
+        this.articles[i]['id']=i;
+
+        this.articles[i]['quantity']=0;
+        this.articles[i]['total']=0;
+      }
       this.filteredArticles=this.articles;
-    }
-    );
+      console.log(this.articles);
+      });
   }
 
 
@@ -142,6 +141,8 @@ export class AchatComponent implements OnInit{
         location.reload();
       }
     }
+    this.server.AddProfit(this.articlesAchetes);
+    this.server.ADDTotal(this.total);
   }
 
   annuler(){

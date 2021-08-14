@@ -19,16 +19,17 @@
                 <div class="col-6">{{article.nom}}</div>
                 <div class="col-2">{{article.prix_vente}}</div>
                 <div class="col-2">
-                    <input type="number" name="quantite" id="{{article.nom}}" (change)="article_quantity_change($event)" value=0 class="text-dark w-50" max={{article.stock}} min=0> 
+                    <input type="number" name="quantite" id="{{article.nom}}" [(ngModel)]="this.filteredArticles[i].quantity" (change)="article_quantity_change($event,this.filteredArticles[i].id)" class="text-dark w-50" max={{article.stock}} min=0> 
                 </div>
                 <div class="col-2 ">
-                    <input type="number" name="total" class="w-75 text-dark" readonly id="{{article.nom}}_total" class="w-100" value=0 style="color: black;">
+                    <input type="number" name="total" class="w-75 text-dark" [(ngModel)]="this.filteredArticles[i].total" readonly id="{{article.nom}}_total" class="w-100"  style="color: black;">
                 </div>
             </div>
         </div>
     </div>
     </div>
 </div>
+<br><br> <br>
 <div class=" container pt-5" style="width: max-content;">
     <div class=" container pt-5">
         <div class=" d-flex pt-5 ">
@@ -56,7 +57,7 @@
                     <div class="col">quantité</div>
                 </div>
             </div>
-            <div class="container " style="overflow-y:auto; height: 420px;font-size:18px;color: white;">
+            <div class="container " style="overflow-y:auto; height: 300px;font-size:18px;color: white;">
                 <div class="row bg-dark w-100 card my-1" *ngFor="let article of articlesAchetes ;let i=index">
                     <div class="row">
                         <div class="col">{{article.nom}}</div>
@@ -64,9 +65,15 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="d-flex pt-2">
+                <h4 style="background-color: transparent; font-size: 20px; font-weight: bold;">Total: </h4>
+                <input readonly type="text" name="Total" value= "{{total}} DT" style="background-color: transparent; font-size: 20px;">
+            </div>
         </div>
+       
         <button type="submit" class="btn  px-5 mt-5" style=" position: absolute;bottom: 0; font-size: 20px; font-weight: bold;"(click)="confirmer()" >Confirmer</button>
-        <button type="button" class="btn  px-5 mt-5" style=" position: absolute;bottom: 0;left: 200px; font-size: 20px; font-weight: bold;" (click)="annuler()">Annuler</button>
+        <button type="button" class="btn  px-5 mt-5" style=" position: absolute;bottom: 0;left: 200px; font-size: 20px; font-weight: bold; margin-left: 15px;" (click)="annuler()">Annuler</button>
     </form>
     
   </div>

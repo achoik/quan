@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Form, NgForm } from '@angular/forms';
 import { data } from 'jquery';
+import { getInterpolationArgsLength } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({
   providedIn: 'root'
@@ -152,4 +153,24 @@ export class ServerService {
     return this.http.get('http://localhost:8080/getTransactions');
   }
   
+
+//----------------------------Calcul Profit---------------------
+AddProfit(Article:any){
+  return this.http.post('http://localhost:8080/profit',Article).subscribe();
+}
+ADDTotal(total:number){
+  const totalAny={
+    total:total
+  }
+  this.http.post('http://localhost:8080/totals',totalAny).subscribe();
+}
+getprofitTotal(){
+  return this.http.get('http://localhost:8080/profitTotal');
+}
+
+
+getprofitDetaille(){
+  return this.http.get('http://localhost:8080/profitDetaille');
+}
+
 }
