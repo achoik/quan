@@ -1,5 +1,5 @@
 
-<div class=" container pt-4 w-100" style=" height: 400px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
+<div class=" container pt-5 w-100" style=" height: 400px; color: aliceblue;  font-size: 20px; opacity: 0.95;">
     <div class="d-flex pt-3">
         <input id="search" class="form-control w-25" type="text"(ngModelChange)="applyFilter($event)" (keyup)="applyFilter($event)" (change)="applyFilter($event)"  [(ngModel)]="searchValue" placeholder="  Rechercher.." name="search">
         <button class="icon"><i class="glyphicon glyphicon-search"></i></button>
@@ -13,7 +13,7 @@
                 <div class="col-2">Total</div>
             </div>
         </div>
-    <div class="container " style="overflow-y:auto; height: 420px;">
+    <div class="container " style="overflow-y:auto; height: 410px;">
         <div class="row bg-dark w-100 card my-1" *ngFor="let article of filteredArticles ;let i=index">
             <div class="row">
                 <div class="col-6">{{article.nom}}</div>
